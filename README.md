@@ -1,2 +1,1 @@
-# PhishProfileML
-Pour finaliser mon diplôme, je recherche un stage de 5 à 6 mois en cybersécurité. Je suis intéressé par tout type de poste dans ce secteur (technique ou non) et je suis mobile dans toute la France.
+Outil de machine learning capable de segmenter des profils étudiants et de recommander des messages personnalisés afin d'optimiser et d'évaluer l'efficacité d'une campagne de phishing.
