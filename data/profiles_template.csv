@@ -1,0 +1,6 @@
+id_profil,statut,specialite_dominante,implication_academique,interet_contenu_pedagogique,implication_vie_etudiante,interet_evenementiel,niveau_technique_estime,aisance_numerique,style_communication,reactivite_percue,presence_numerique_visible
+P01,alternance,cyber,3,3,2,1,3,3,mixte,2,1
+P02,initial,mixte,2,2,3,3,2,2,informel,3,3
+P03,alternance,dev,2,2,1,1,3,3,formel,2,1
+P04,initial,cyber,3,3,1,1,3,2,formel,1,1
+P05,initial,mixte,1,1,3,3,1,2,informel,3,3

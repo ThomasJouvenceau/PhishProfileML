@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Models
+models/*.pkl
+models/*.joblib
+
+# OS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Sensitive / private data
+data/raw_profiles.csv
+data/campaign_results.csv
