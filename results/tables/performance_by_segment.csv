@@ -1,0 +1,9 @@
+segment_principal,condition,nb_profils,taux_ouverture,taux_clic,taux_reponse,delai_reaction_moyen_heures,performance_globale,commentaire
+profil_academique,generique,,,,,,, 
+profil_academique,personnalisee,,,,,,, 
+profil_associatif_evenementiel,generique,,,,,,, 
+profil_associatif_evenementiel,personnalisee,,,,,,, 
+profil_technique_vigilant,generique,,,,,,, 
+profil_technique_vigilant,personnalisee,,,,,,, 
+profil_hybride_social,generique,,,,,,, 
+profil_hybride_social,personnalisee,,,,,,, 

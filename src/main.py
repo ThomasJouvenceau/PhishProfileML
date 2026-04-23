@@ -27,7 +27,17 @@ def main() -> None:
     final_df.to_csv(output_csv, index=False)
 
     print("=== Profils segmentés ===")
-    print(final_df[["id_profil", "cluster", "categorie_message_recommandee"]])
+    print(
+        final_df[
+            [
+                "id_profil",
+                "cluster",
+                "segment_principal",
+                "score_confiance_segment",
+                "categorie_message_recommandee",
+            ]
+        ]
+    )
 
     print("\n=== Résumé des clusters ===")
     print(summarize_clusters(final_df))
