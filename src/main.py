@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 
-from preprocess import encode_profiles, load_profiles
+from preprocess import prepare_processed_profiles, resolve_input_csv
 from recommend_category import apply_recommendations
 from segment_profiles import (
     cluster_profiles,
@@ -12,21 +12,32 @@ from segment_profiles import (
 
 
 def main() -> None:
-    input_csv = "data/profiles_template.csv"
+    input_csv = resolve_input_csv()
+    processed_csv = "data/processed_profiles.csv"
     output_csv = "results/profiles_segmented.csv"
 
     os.makedirs("results", exist_ok=True)
 
-    raw_df = load_profiles(input_csv)
-    encoded_df = encode_profiles(raw_df)
+    processed_df = prepare_processed_profiles(input_csv, processed_csv)
 
-    clustered_df, model, scaler = cluster_profiles(encoded_df, n_clusters=4)
+    n_clusters = min(4, len(processed_df))
+    if n_clusters < 2:
+        raise ValueError(
+            "Au moins 2 profils sont necessaires pour lancer la segmentation."
+        )
+
+    clustered_df, model, scaler = cluster_profiles(
+        processed_df,
+        n_clusters=n_clusters,
+    )
     save_cluster_artifacts(model, scaler)
 
     final_df = apply_recommendations(clustered_df)
     final_df.to_csv(output_csv, index=False)
 
-    print("=== Profils segmentés ===")
+    print(f"Source profils : {input_csv}")
+    print(f"Dataset traite exporte dans : {processed_csv}")
+    print("=== Profils segmentes ===")
     print(
         final_df[
             [
@@ -39,10 +50,10 @@ def main() -> None:
         ]
     )
 
-    print("\n=== Résumé des clusters ===")
+    print("\n=== Resume des clusters ===")
     print(summarize_clusters(final_df))
 
-    print(f"\nRésultats exportés dans : {output_csv}")
+    print(f"\nResultats exportes dans : {output_csv}")
 
 
 if __name__ == "__main__":
