@@ -105,8 +105,9 @@ Le pipeline actuel comprend :
 3. Normalisation des données.
 4. Segmentation des profils avec KMeans.
 5. Recommandation d’une catégorie de message.
-6. Export des résultats dans un fichier CSV.
-7. Analyse future des résultats expérimentaux.
+6. Export des résultats dans des fichiers CSV.
+7. Évaluation des résultats expérimentaux.
+8. Restitution via tableaux, JSON de synthèse et application Streamlit.
 
 ## Structure du repository
 
@@ -129,7 +130,8 @@ phishprofile-ml/
 │   ├── segment_profiles.py
 │   ├── recommend_category.py
 │   ├── evaluate_results.py
-│   └── main.py
+│   ├── main.py
+│   └── app.py
 ├── .gitignore
 ├── README.md
 └── requirements.txt

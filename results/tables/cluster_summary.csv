@@ -1,1 +1,5 @@
-cluster,segment_principal,nb_profils,score_confiance_moyen,implication_academique_moyenne,interet_contenu_pedagogique_moyen,implication_vie_etudiante_moyenne,interet_evenementiel_moyen,niveau_technique_estime_moyen,aisance_numerique_moyenne,reactivite_percue_moyenne,presence_numerique_visible_moyenne,categorie_message_dominante,interpretation
+cluster,segment_principal,nb_profils,score_confiance_moyen,implication_academique,interet_contenu_pedagogique,implication_vie_etudiante,interet_evenementiel,niveau_technique_estime,aisance_numerique,reactivite_percue,presence_numerique_visible,categorie_message_dominante,interpretation
+0,profil_academique,11,0.369,2.91,2.91,1.73,1.45,3.0,2.55,1.73,1.45,pedagogique_institutionnel,Interet marque pour les contenus pedagogiques.
+1,profil_hybride_social,4,0.38,1.0,1.0,1.5,1.5,1.0,1.0,1.5,1.5,hybride_general,Profil equilibre avec visibilite sociale plus marquee.
+2,profil_associatif_evenementiel,6,0.411,1.5,1.5,3.0,3.0,1.5,2.0,3.0,3.0,evenementiel_social,Sensibilite forte a la vie etudiante et aux evenements.
+3,profil_technique_vigilant,5,0.364,2.0,2.0,1.6,1.6,2.0,2.0,1.6,1.6,hybride_general,Aisance numerique et orientation technique elevees.

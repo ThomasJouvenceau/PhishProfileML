@@ -1,6 +1,6 @@
-categorie_message_recommandee,nb_profils,part_du_total,segment_majoritaire,commentaire
-pedagogique_institutionnel,,,, 
-evenementiel_social,,,, 
-technique_outils,,,, 
-informel_communautaire,,,, 
-hybride_general,,,, 
+categorie_message_recommandee,nb_profils,segment_majoritaire,part_du_total,commentaire
+evenementiel_social,6,profil_associatif_evenementiel,0.2308,
+hybride_general,7,profil_technique_vigilant,0.2692,
+informel_communautaire,2,profil_hybride_social,0.0769,
+pedagogique_institutionnel,10,profil_academique,0.3846,
+technique_outils,1,profil_academique,0.0385,

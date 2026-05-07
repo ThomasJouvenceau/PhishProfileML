@@ -10,6 +10,7 @@ import streamlit as st
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 PROCESSED_PROFILES_PATH = BASE_DIR / "data" / "processed_profiles.csv"
+CAMPAIGN_RESULTS_PATH = BASE_DIR / "data" / "campaign_results.csv"
 SEGMENTED_PROFILES_PATH = BASE_DIR / "results" / "profiles_segmented.csv"
 SUMMARY_METRICS_PATH = BASE_DIR / "results" / "summary_metrics.json"
 FINAL_SUMMARY_PATH = BASE_DIR / "results" / "final_summary.md"
@@ -45,6 +46,41 @@ def load_markdown(path: Path) -> str | None:
     return None
 
 
+def format_metric_value(value: object, *, percentage: bool = False, suffix: str = "") -> str:
+    if value is None or pd.isna(value):
+        return "N/A"
+
+    numeric_value = float(value)
+    if percentage:
+        return f"{numeric_value * 100:.1f}%"
+    if suffix:
+        return f"{numeric_value:.2f} {suffix}"
+    return f"{numeric_value:.3f}"
+
+
+def render_metric_group(title: str, metrics: dict[str, object]) -> None:
+    st.subheader(title)
+    columns = st.columns(5)
+    metric_specs = [
+        ("taux_ouverture", "Taux ouverture", True, ""),
+        ("taux_clic", "Taux clic", True, ""),
+        ("taux_reponse", "Taux reponse", True, ""),
+        ("delai_reaction_moyen_heures", "Delai moyen", False, "h"),
+        ("performance_globale", "Performance globale", True, ""),
+    ]
+
+    for index, (key, label, percentage, suffix) in enumerate(metric_specs):
+        with columns[index]:
+            st.metric(
+                label=label,
+                value=format_metric_value(
+                    metrics.get(key),
+                    percentage=percentage,
+                    suffix=suffix,
+                ),
+            )
+
+
 st.title("PhishProfileML")
 st.subheader("Segmentation ML de profils étudiants et recommandation de catégories de messages")
 
@@ -62,6 +98,7 @@ st.divider()
 
 segmented_df = load_csv(SEGMENTED_PROFILES_PATH)
 processed_df = load_csv(PROCESSED_PROFILES_PATH)
+campaign_df = load_csv(CAMPAIGN_RESULTS_PATH)
 summary_metrics = load_json(SUMMARY_METRICS_PATH)
 final_summary = load_markdown(FINAL_SUMMARY_PATH)
 
@@ -71,6 +108,12 @@ if segmented_df is None:
         "Lance d'abord le pipeline avec : python src/main.py"
     )
     st.stop()
+
+if campaign_df is not None and len(segmented_df) != len(campaign_df):
+    st.warning(
+        "Le nombre de profils segmentes ne correspond pas au nombre de lignes "
+        "dans data/campaign_results.csv. Les sorties doivent probablement etre regenerees."
+    )
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(
     [
@@ -163,15 +206,58 @@ with tab4:
     st.header("Résultats de campagne")
 
     if summary_metrics is not None:
-        st.subheader("Métriques principales")
+        dataset_info = summary_metrics.get("dataset", {})
+        segmentation_info = summary_metrics.get("segmentation", {})
+        campaign_comparison = summary_metrics.get("campaign_comparison", {})
+        conclusion = summary_metrics.get("conclusion", {})
 
-        metric_items = list(summary_metrics.items())
+        st.subheader("Synthese")
+        col1, col2, col3 = st.columns(3)
+        col1.metric(
+            "Profils segmentes",
+            dataset_info.get("nb_profils_segmentes", "N/A"),
+        )
+        col2.metric(
+            "Segments detectes",
+            dataset_info.get("nb_segments", "N/A"),
+        )
+        col3.metric(
+            "Confiance moyenne",
+            format_metric_value(
+                segmentation_info.get("score_confiance_moyen_global"),
+            ),
+        )
 
-        columns = st.columns(min(4, len(metric_items)))
+        generique_metrics = campaign_comparison.get("generique", {})
+        personnalisee_metrics = campaign_comparison.get("personnalisee", {})
+        delta_metrics = campaign_comparison.get("delta_personnalisation", {})
+        comparison_available = dataset_info.get("comparison_available")
+        if comparison_available is None:
+            comparison_available = (
+                generique_metrics.get("taux_clic") is not None
+                and personnalisee_metrics.get("taux_clic") is not None
+            )
 
-        for index, (key, value) in enumerate(metric_items):
-            with columns[index % len(columns)]:
-                st.metric(label=key, value=value)
+        if comparison_available:
+            render_metric_group("Campagne generique", generique_metrics)
+            render_metric_group("Campagne personnalisee", personnalisee_metrics)
+            render_metric_group("Delta personnalisation", delta_metrics)
+        else:
+            st.info(
+                "La comparaison generique vs personnalisee n'est pas encore disponible "
+                "avec le format actuel de campaign_results.csv."
+            )
+
+        limitations = conclusion.get("main_limitations", [])
+        if limitations:
+            st.subheader("Points de vigilance")
+            for limitation in limitations:
+                st.write(f"- {limitation}")
+
+        main_finding = conclusion.get("main_finding")
+        if main_finding:
+            st.subheader("Lecture rapide")
+            st.write(main_finding)
 
         with st.expander("Voir le fichier summary_metrics.json"):
             st.json(summary_metrics)

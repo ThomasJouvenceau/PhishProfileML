@@ -1,2 +1,2 @@
 metrique_principale,score_generique,score_personnalise,delta_absolu,delta_relatif_pourcent,hypothese_validee,commentaire
-taux_clic,,,,,,
+taux_clic,,,,,,Impossible de tester l'hypothese : la colonne de condition generique/personnalisee est absente.

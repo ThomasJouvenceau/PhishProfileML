@@ -42,6 +42,18 @@ Lancer la pipeline complete :
 python src/main.py
 ```
 
+Generer les tableaux et la synthese d'evaluation :
+
+```bash
+python src/evaluate_results.py
+```
+
+Lancer l'application de visualisation :
+
+```bash
+streamlit run src/app.py
+```
+
 ## Controles integres
 
 Le preprocessing verifie automatiquement :

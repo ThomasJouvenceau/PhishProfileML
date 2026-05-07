@@ -2,39 +2,40 @@
   "project_name": "PhishProfileML",
   "primary_metric": "taux_clic",
   "dataset": {
-    "nb_profils_total": null,
-    "nb_profils_segmentes": null,
+    "nb_profils_total": 26,
+    "nb_profils_segmentes": 26,
     "nb_segments": 4,
     "source_profiles": "data/processed_profiles.csv",
     "source_campaign_results": "data/campaign_results.csv",
-    "date_export": ""
+    "date_export": "2026-05-07",
+    "comparison_available": false
   },
   "segmentation": {
-    "score_confiance_moyen_global": null,
+    "score_confiance_moyen_global": 0.379,
     "clusters": [
       {
         "cluster": 0,
-        "segment_principal": "",
-        "nb_profils": null,
-        "score_confiance_moyen": null
+        "segment_principal": "profil_academique",
+        "nb_profils": 11,
+        "score_confiance_moyen": 0.369
       },
       {
         "cluster": 1,
-        "segment_principal": "",
-        "nb_profils": null,
-        "score_confiance_moyen": null
+        "segment_principal": "profil_hybride_social",
+        "nb_profils": 4,
+        "score_confiance_moyen": 0.38
       },
       {
         "cluster": 2,
-        "segment_principal": "",
-        "nb_profils": null,
-        "score_confiance_moyen": null
+        "segment_principal": "profil_associatif_evenementiel",
+        "nb_profils": 6,
+        "score_confiance_moyen": 0.411
       },
       {
         "cluster": 3,
-        "segment_principal": "",
-        "nb_profils": null,
-        "score_confiance_moyen": null
+        "segment_principal": "profil_technique_vigilant",
+        "nb_profils": 5,
+        "score_confiance_moyen": 0.364
       }
     ]
   },
@@ -61,36 +62,13 @@
       "performance_globale": null
     }
   },
-  "performance_by_segment": [
-    {
-      "segment_principal": "profil_academique",
-      "taux_clic_generique": null,
-      "taux_clic_personnalise": null,
-      "delta_taux_clic": null
-    },
-    {
-      "segment_principal": "profil_associatif_evenementiel",
-      "taux_clic_generique": null,
-      "taux_clic_personnalise": null,
-      "delta_taux_clic": null
-    },
-    {
-      "segment_principal": "profil_technique_vigilant",
-      "taux_clic_generique": null,
-      "taux_clic_personnalise": null,
-      "delta_taux_clic": null
-    },
-    {
-      "segment_principal": "profil_hybride_social",
-      "taux_clic_generique": null,
-      "taux_clic_personnalise": null,
-      "delta_taux_clic": null
-    }
-  ],
+  "performance_by_segment": [],
   "conclusion": {
     "hypothesis_validated": null,
-    "main_finding": "",
+    "main_finding": "Impossible de conclure sur l'effet de la personnalisation.",
     "most_responsive_segment": "",
-    "main_limitations": []
+    "main_limitations": [
+      "campaign_results.csv ne contient pas de colonne de condition (generique/personnalisee). Les comparaisons par campagne seront marquees comme indisponibles."
+    ]
   }
 }

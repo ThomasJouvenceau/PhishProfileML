@@ -1,3 +1,2 @@
 condition,nb_profils,taux_ouverture,taux_clic,taux_reponse,delai_reaction_moyen_heures,performance_globale,commentaire
-generique,,,,,,,
-personnalisee,,,,,,,
+globale,26,0.8577,0.4577,0.2646,12.2346,0.5267,Comparaison generique/personnalisee indisponible avec le format actuel.
