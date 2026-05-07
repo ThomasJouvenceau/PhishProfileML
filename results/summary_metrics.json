@@ -8,7 +8,7 @@
     "source_profiles": "data/processed_profiles.csv",
     "source_campaign_results": "data/campaign_results.csv",
     "date_export": "2026-05-07",
-    "comparison_available": false
+    "comparison_available": true
   },
   "segmentation": {
     "score_confiance_moyen_global": 0.379,
@@ -41,34 +41,57 @@
   },
   "campaign_comparison": {
     "generique": {
-      "taux_ouverture": null,
-      "taux_clic": null,
-      "taux_reponse": null,
-      "delai_reaction_moyen_heures": null,
-      "performance_globale": null
+      "taux_ouverture": 0.7677,
+      "taux_clic": 0.3477,
+      "taux_reponse": 0.1881,
+      "delai_reaction_moyen_heures": 16.7346,
+      "performance_globale": 0.4345
     },
     "personnalisee": {
-      "taux_ouverture": null,
-      "taux_clic": null,
-      "taux_reponse": null,
-      "delai_reaction_moyen_heures": null,
-      "performance_globale": null
+      "taux_ouverture": 0.8577,
+      "taux_clic": 0.4577,
+      "taux_reponse": 0.2646,
+      "delai_reaction_moyen_heures": 12.2346,
+      "performance_globale": 0.5267
     },
     "delta_personnalisation": {
-      "taux_ouverture": null,
-      "taux_clic": null,
-      "taux_reponse": null,
-      "delai_reaction_moyen_heures": null,
-      "performance_globale": null
+      "taux_ouverture": 0.09,
+      "taux_clic": 0.11,
+      "taux_reponse": 0.0765,
+      "delai_reaction_moyen_heures": -4.5,
+      "performance_globale": 0.0922
     }
   },
-  "performance_by_segment": [],
+  "performance_by_segment": [
+    {
+      "segment_principal": "profil_academique",
+      "taux_clic_generique": 0.3745,
+      "taux_clic_personnalise": 0.4864,
+      "delta_taux_clic": 0.1119
+    },
+    {
+      "segment_principal": "profil_associatif_evenementiel",
+      "taux_clic_generique": 0.36,
+      "taux_clic_personnalise": 0.4667,
+      "delta_taux_clic": 0.1067
+    },
+    {
+      "segment_principal": "profil_hybride_social",
+      "taux_clic_generique": 0.27,
+      "taux_clic_personnalise": 0.375,
+      "delta_taux_clic": 0.105
+    },
+    {
+      "segment_principal": "profil_technique_vigilant",
+      "taux_clic_generique": 0.336,
+      "taux_clic_personnalise": 0.45,
+      "delta_taux_clic": 0.114
+    }
+  ],
   "conclusion": {
-    "hypothesis_validated": null,
-    "main_finding": "Impossible de conclure sur l'effet de la personnalisation.",
-    "most_responsive_segment": "",
-    "main_limitations": [
-      "campaign_results.csv ne contient pas de colonne de condition (generique/personnalisee). Les comparaisons par campagne seront marquees comme indisponibles."
-    ]
+    "hypothesis_validated": true,
+    "main_finding": "La personnalisation ameliore le taux de clic.",
+    "most_responsive_segment": "profil_technique_vigilant",
+    "main_limitations": []
   }
 }

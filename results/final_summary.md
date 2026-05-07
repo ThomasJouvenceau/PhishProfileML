@@ -6,17 +6,17 @@ Une campagne personnalisee basee sur la segmentation ML performe mieux qu'une ca
 
 ## Resultat principal
 
-Impossible de conclure sur l'effet de la personnalisation.
+La personnalisation ameliore le taux de clic.
 
 ## Comparaison generique vs personnalisee
 
-- Taux de clic generique : None
-- Taux de clic personnalise : None
-- Delta taux de clic : None
+- Taux de clic generique : 0.3477
+- Taux de clic personnalise : 0.4577
+- Delta taux de clic : 0.11
 
 ## Segments les plus reactifs
 
-Non determine avec les donnees actuelles.
+profil_technique_vigilant
 
 ## Coherence des recommandations
 
@@ -24,7 +24,7 @@ A confronter avec les performances observees par segment et par categorie de mes
 
 ## Limites de l'experience
 
-- campaign_results.csv ne contient pas de colonne de condition (generique/personnalisee). Les comparaisons par campagne seront marquees comme indisponibles.
+- Aucune limite supplementaire n'a ete enregistree automatiquement.
 
 ## Conclusion
 

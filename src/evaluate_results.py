@@ -308,7 +308,25 @@ def build_campaign_outputs(
 
     available_conditions = sorted(campaign_results_df["condition"].dropna().unique().tolist())
 
-    if can_compare_conditions and {"generique", "personnalisee"}.issubset(available_conditions):
+    required_conditions_present = {"generique", "personnalisee"}.issubset(
+        available_conditions
+    )
+    comparison_ready = (
+        can_compare_conditions
+        and required_conditions_present
+        and "taux_clic" in campaign_results_df.columns
+        and all(
+            not campaign_results_df.loc[
+                campaign_results_df["condition"] == condition,
+                "taux_clic",
+            ]
+            .dropna()
+            .empty
+            for condition in ("generique", "personnalisee")
+        )
+    )
+
+    if comparison_ready:
         campaign_comparison = _aggregate_metrics(campaign_results_df, ["condition"])
         campaign_comparison["commentaire"] = ""
 
@@ -397,6 +415,7 @@ def build_campaign_outputs(
         summary_data = {
             "comparison_available": True,
             "unmatched_profiles": unmatched_profiles,
+            "warnings": [],
             "campaign_comparison": {
                 "generique": {
                     key: _round_value(generique_row.get(key))
@@ -446,18 +465,20 @@ def build_campaign_outputs(
         )
 
     campaign_comparison = _aggregate_metrics(campaign_results_df, ["condition"])
-    campaign_comparison["commentaire"] = (
-        "Comparaison generique/personnalisee indisponible avec le format actuel."
+    missing_comparison_warning = (
+        "Comparaison generique/personnalisee indisponible : "
+        "au moins une des deux conditions n'a pas encore de metriques exploitables."
+        if required_conditions_present
+        else "Comparaison generique/personnalisee indisponible avec le format actuel."
     )
+    campaign_comparison["commentaire"] = missing_comparison_warning
 
     if not merged.empty:
         performance_by_segment = _aggregate_metrics(
             merged,
             ["segment_principal", "condition"],
         )
-        performance_by_segment["commentaire"] = (
-            "Analyse calculee sans separation explicite des conditions."
-        )
+        performance_by_segment["commentaire"] = missing_comparison_warning
     else:
         performance_by_segment = pd.DataFrame(
             columns=[
@@ -482,10 +503,8 @@ def build_campaign_outputs(
                 "delta_absolu": pd.NA,
                 "delta_relatif_pourcent": pd.NA,
                 "hypothese_validee": pd.NA,
-                "commentaire": (
-                    "Impossible de tester l'hypothese : "
-                    "la colonne de condition generique/personnalisee est absente."
-                ),
+                "commentaire": "Impossible de tester l'hypothese : "
+                + missing_comparison_warning,
             }
         ]
     )
@@ -493,6 +512,7 @@ def build_campaign_outputs(
     summary_data = {
         "comparison_available": False,
         "unmatched_profiles": unmatched_profiles,
+        "warnings": [missing_comparison_warning],
         "campaign_comparison": {
             "generique": {key: None for key in METRIC_COLUMNS + ["performance_globale"]},
             "personnalisee": {key: None for key in METRIC_COLUMNS + ["performance_globale"]},
@@ -575,6 +595,7 @@ def build_summary_json(
             ),
             "most_responsive_segment": campaign_summary["most_responsive_segment"],
             "main_limitations": warnings
+            + campaign_summary.get("warnings", [])
             + (
                 [
                     "Certains profils de campagne ne correspondent pas au fichier de segmentation courant."

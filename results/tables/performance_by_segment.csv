@@ -1,5 +1,9 @@
 segment_principal,condition,nb_profils,taux_ouverture,taux_clic,taux_reponse,delai_reaction_moyen_heures,performance_globale,commentaire
-profil_academique,globale,11,0.8864,0.4864,0.2936,10.2455,0.5555,Analyse calculee sans separation explicite des conditions.
-profil_associatif_evenementiel,globale,6,0.8667,0.4667,0.27,11.7333,0.5344,Analyse calculee sans separation explicite des conditions.
-profil_hybride_social,globale,4,0.775,0.375,0.1925,17.625,0.4475,Analyse calculee sans separation explicite des conditions.
-profil_technique_vigilant,globale,5,0.85,0.45,0.252,12.9,0.5173,Analyse calculee sans separation explicite des conditions.
+profil_academique,generique,11,0.7945,0.3745,0.2164,14.8364,0.4618,
+profil_academique,personnalisee,11,0.8864,0.4864,0.2936,10.2455,0.5555,
+profil_associatif_evenementiel,generique,6,0.78,0.36,0.1967,16.0667,0.4456,
+profil_associatif_evenementiel,personnalisee,6,0.8667,0.4667,0.27,11.7333,0.5344,
+profil_hybride_social,generique,4,0.69,0.27,0.1175,21.875,0.3592,
+profil_hybride_social,personnalisee,4,0.775,0.375,0.1925,17.625,0.4475,
+profil_technique_vigilant,generique,5,0.756,0.336,0.172,17.6,0.4213,
+profil_technique_vigilant,personnalisee,5,0.85,0.45,0.252,12.9,0.5173,

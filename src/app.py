@@ -109,11 +109,27 @@ if segmented_df is None:
     )
     st.stop()
 
-if campaign_df is not None and len(segmented_df) != len(campaign_df):
-    st.warning(
-        "Le nombre de profils segmentes ne correspond pas au nombre de lignes "
-        "dans data/campaign_results.csv. Les sorties doivent probablement etre regenerees."
-    )
+if campaign_df is not None and "id_profil" in campaign_df.columns and "id_profil" in segmented_df.columns:
+    segmented_ids = set(segmented_df["id_profil"].dropna().astype(str))
+    campaign_ids = set(campaign_df["id_profil"].dropna().astype(str))
+
+    if segmented_ids != campaign_ids:
+        missing_in_segmented = sorted(campaign_ids - segmented_ids)
+        missing_in_campaign = sorted(segmented_ids - campaign_ids)
+
+        warning_parts = [
+            "Les profils presents dans results/profiles_segmented.csv et data/campaign_results.csv ne correspondent pas completement."
+        ]
+        if missing_in_segmented:
+            warning_parts.append(
+                "Absents de la segmentation : " + ", ".join(missing_in_segmented)
+            )
+        if missing_in_campaign:
+            warning_parts.append(
+                "Absents des resultats de campagne : " + ", ".join(missing_in_campaign)
+            )
+
+        st.warning(" ".join(warning_parts))
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(
     [
